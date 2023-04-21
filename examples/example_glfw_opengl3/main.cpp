@@ -104,6 +104,10 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+    // Own Test State
+    bool show_own_window = false;
+    bool show_own_comment = false;
+
     // Main loop
 #ifdef __EMSCRIPTEN__
     // For an Emscripten build we are disabling file-system access, so let's not attempt to do a fopen() of the imgui.ini file.
@@ -140,6 +144,7 @@ int main(int, char**)
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
+            ImGui::Checkbox("Own Test Window", &show_own_window);
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -160,6 +165,19 @@ int main(int, char**)
             ImGui::Text("Hello from another window!");
             if (ImGui::Button("Close Me"))
                 show_another_window = false;
+            ImGui::End();
+        }
+
+        // own test
+        if (show_own_window)
+        {
+            ImGui::Begin("Own Test Window");
+            ImGui::Text("First Test Window.");
+            ImGui::Checkbox("Own Comment", &show_own_comment);
+            if (show_own_comment)
+            {
+                ImGui::Text("Toggle Comment Test");
+            }
             ImGui::End();
         }
 
